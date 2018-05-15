@@ -257,16 +257,16 @@
         // 本地或在线图片数据请求
        
         getImageData: function () {
-            alert(window.urlPath)
-            var urlPath = window.urlPath;
+            alert(window.location)
+            var urlPath = window.location.href.slice(0,window.location.href.lastIndexOf('\/'));
             // 未做图片上传及动态获取图片数据，如需添加图片，请按以下添加图片图片及图片链接
            var json= {
                 list:[
-                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/1.jpg"},
-                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/2.jpg"},
-                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/3.jpg"},
-                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/4.jpg"},
-                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/5.png"},
+                {url:urlPath+"/images/1.jpg"},
+                {url:urlPath+"/images/2.jpg"},
+                {url:urlPath+"/images/3.jpg"},
+                {url:urlPath+"/images/4.jpg"},
+                {url:urlPath+"/images/5.png"}, 
             ],
             start:0,
             total:5

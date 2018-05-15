@@ -1,6 +1,4 @@
 $(function() {
-  console.log(localStorage.getItem('formData'));
-  
   $('form').html(localStorage.getItem('formData'))
   $('form').append('<div class="greenBtn" id="submit">提交</div><div style="clear:both"></div>')
  var background = $('[data-background]').attr('data-background')

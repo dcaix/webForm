@@ -89,11 +89,10 @@ function checkRule(){
 } 
 
 var container = $('#container').html(formData)
-console.log(container)
+
 var leipiplugins = container.find('[leipiplugins]')
 var box = container.children('.questionBox')
-console.log(leipiplugins)
-console.log(box)
+
 var flag = false
 var num;
 function flags(i){

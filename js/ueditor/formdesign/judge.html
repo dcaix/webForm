@@ -125,7 +125,7 @@ function fnParseOptions()
         if(inputs.length>0)
         {
             if(!inputs[0].value) continue;
-          html += '<input value="'+i+'" type="radio" dataValue="'+ inputs[0].value +'"/>'+inputs[0].value+'&nbsp;';
+          html += '<input disabled="disabled" value="'+i+'" type="radio" dataValue="'+ inputs[0].value +'"/>'+inputs[0].value+'&nbsp;';
         }
     }
     //alert(html);
@@ -188,8 +188,8 @@ dialog.onok = function (){
             }
     
             var html = '<label class="judge" leipiplugins="judge" >';
-                html += options;
-                html +='</label></br>';
+                html +=  options;
+                html +='</label><br/>';
             editor.execCommand('insertHtml',html);
             return true ;
         } catch ( e ) {

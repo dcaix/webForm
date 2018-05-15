@@ -1,7 +1,14 @@
 $(function() {
-  $('form').html(localStorage.getItem('formData')) 
-  addName()
+  console.log(localStorage.getItem('formData'));
+  
+  $('form').html(localStorage.getItem('formData'))
+  $('form').append('<div class="greenBtn" id="submit">提交</div><div style="clear:both"></div>')
+ var background = $('[data-background]').attr('data-background')
+ $('form').attr('style',background)
 
+// 添加提交收集的必要属性
+  addName()
+  // 校验表单完整性
   checkForm()
 
 })
@@ -50,7 +57,7 @@ function addName() {
           .find('.complexCheckbox')
           .attr({
             name: fatherIndex,
-            value: 'negate',
+            value: 'negate'
           })
           .on('click', function() {
             if ($(this).prop('checked')) {
@@ -75,7 +82,7 @@ function addName() {
         $this
           .find('.complexCheckbox')
           .attr({
-            value: 'negate',
+            value: 'negate'
           })
           .on('click', function() {
             if ($(this).prop('checked')) {
@@ -113,13 +120,12 @@ function addName() {
 }
 
 function getData(fn) {
-  
+ 
   $('#submit').on('click', function() {
     var resultData = []
     var judgeS = {}
 
     var serializeArray = $('form').serializeArray()
-
     // 数据处理
     $.each(serializeArray, function(i, val) {
       var titNum = val.name.split('-')[0]
@@ -132,7 +138,7 @@ function getData(fn) {
      }
    
       if (!resultData.length) {
-        resultData[0] = { titNum: titNum, val: val.value }
+        resultData[0] = { titNum: titNum, val: val.value}
       } else {
         var flag = 0
         var index
@@ -170,10 +176,8 @@ function checkForm(){
   })
   // 获取提交表单的数据
   getData(function(data,judgeS){
-    console.log(data)
-    console.log(judgeS)
     // 清除所有未勾选选项的提示 class
-    $('.questionBox').removeClass("warn")
+    box.removeClass("warn")
     var isComplete = true
     var goto = []
     for(var i =1 ;i<len+1;i++){
@@ -190,6 +194,7 @@ function checkForm(){
   if(isAnswer){
     continue
   }
+
   // 校验非简单题的答案是否完整
 
   $.each(data, function(k, va) {
@@ -208,24 +213,46 @@ function checkForm(){
     if(!flag){
       isComplete = flag
       goto.push(i)
-     $('.questionBox').eq(i-1).addClass("warn")
+      box.eq(i-1).addClass("warn")
     }
    }
 
   if(!isComplete){
     alert('请完整填写问卷调查')
-    $("html,body").animate({scrollTop:$('.questionBox').eq(goto[0]-1).offset().top},600)
+    $("html,body").animate({scrollTop:box.eq(goto[0]-1).offset().top},600)
     return
   }
-      // 弹窗结果处理,给预览窗口演示
-      var str = ''
+   
+      // 给每个题组加上原始类型 及问题长度
+      var str = '此次问卷调查结果为：\n'
       for (var i in data) {
         if (data.hasOwnProperty(i)) {
           str += ('第'+data[i].titNum+'题: '+ data[i].val+'\n')
-          data[i];  
         }
       }
       alert(str)
- })
-
+      for (var i in data) {
+        if (data.hasOwnProperty(i)) {
+        var boxIndex =   parseInt(data[i].titNum)-1
+        var seleType =  $(box[boxIndex]).attr('questiontype')
+      data[i].seleType = seleType
+//  如果答案为不定项传入len长度，判断类型 多选，多选判断，评分，评分判断，单选传1
+      switch (seleType) {
+        case 'radio':
+        data[i].len =  1
+          break;
+          case 'checkbox' :
+          case 'complexCheckbox':
+          data[i].len =  $(box[boxIndex]).find('input[type="checkbox"]').length
+          break;
+          case 'judges':
+          data[i].len =  $(box[boxIndex]).find('label.judge').length
+          break;
+          case 'complexJudges':
+          data[i].len =  $(box[boxIndex]).find('label.judge').length+1
+          break;
+      }
+        }
+      }
+})
 }

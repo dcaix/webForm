@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <script src="./js/jquery-1.7.2.min.js"></script>
-  <script src="./js/ueditor/formdesign/view.js"></script>
+  <title>题目预览</title>
   <style>
-      input[type="text"]{
+    	.greenBtn {
+				zoom:1;
+				float:right;
+			}
+         input[type="text"]{
     cursor: text;
     padding: 1px;
     border-width: 2px;
@@ -18,16 +20,37 @@
 input[type="text"]:focus{
   outline: none;
 }
-.warn {
-    border:1px solid red;
+input{
+	    background-color: transparent;
 }
+.warn {
+		border:1px solid red;
+		}
+		form{
+			padding:50px  50px
+		}
   </style>
+  <script src="./js/jquery-1.7.2.min.js"></script>
+  	<script type="text/javascript" src="./view.js"></script>
+		
 </head>
 <body>
-    <form action="">
-  
+<div class="navgationArea">
+				<!-- 导航路径区域 -->
+			问卷调查&gt;题目预览
+			</div>
+			<!-- 开始 -->
+			
+			<!-- 题目树列表 开始 -->
+			<form >
+			
+			
+			</form>
+			<!-- 题目树列表 结束 -->
+			
 
-</form>
-<button id="submit">提交</button>
-</body>
+		<!-- end -->
+		</div>
+	
+	</body>
 </html>

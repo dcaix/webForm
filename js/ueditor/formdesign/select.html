@@ -15,15 +15,14 @@
     <link rel="stylesheet" href="leipi.style.css">
     <script type="text/javascript" src="../dialogs/internal.js"></script>
     <script type="text/javascript">
-function createElement(type, name)
+function createElement(type)
 {     
     var element = null;     
     try {        
-        element = document.createElement('<'+type+' name="'+name+'">');     
+        element = document.createElement('<'+type+'>');     
     } catch (e) {}   
     if(element==null) {     
-        element = document.createElement(type);     
-        element.name = name;     
+        element = document.createElement(type);         
     } 
     return element;     
 }
@@ -163,7 +162,7 @@ function fnSetAttribute( element, attName, attValue ) {
 <div class="content">
     <table class="table table-bordered table-striped table-hover">
      <tr>
-        <th><span>控件名称</span><span class="label label-important">*</span></th>
+         <th><span>控件名称:<span class="small">填写问卷调查时鼠标放上可显示的文字，建议同一个问题组控件名称一致</span></span><span class="label label-important">*</span></th>
         <th><span>控件样式</span> </th>
     </tr>
     <tr>
@@ -235,6 +234,7 @@ dialog.oncancel = function () {
     }
 };
 dialog.onok = function (){
+    
     if( $G('orgname').value == '') {
         alert('控件名称不能为空');
         return false;
@@ -252,7 +252,8 @@ dialog.onok = function (){
     if( !oNode ) {
         try {
             //oNode = document.createElement("select"); 
-            oNode = createElement('select','leipiNewField');
+
+            oNode = createElement('select');
             oNode.setAttribute('title',$G('orgname').value);
             oNode.setAttribute('leipiPlugins',thePlugins );
             oNode.setAttribute('size',gSize);
@@ -278,7 +279,7 @@ dialog.onok = function (){
                 }
             }
             //firefox要利用span
-            editor.execCommand('insertHtml','{|-<span leipiplugins="select">'+oNode.outerHTML+'&nbsp;&nbsp;</span>-|}');
+            editor.execCommand('insertHtml','<span leipiplugins="select">'+oNode.outerHTML+'&nbsp;&nbsp;</span>');
             return true ;
         } catch ( e ) {
             try {

@@ -174,6 +174,8 @@
             }
 
             editor.execCommand('background', backgroundObj);
+        
+           
         } else {
             editor.execCommand('background', null);
         }
@@ -251,53 +253,83 @@
             this.initContainer();
             this.initData();
         },
-        /* 向后台拉取图片列表数据 */
+        /* 向后台拉取图片列表数据 */ 
+        // 本地或在线图片数据请求
+       
         getImageData: function () {
-            var _this = this;
+            alert(window.urlPath)
+            var urlPath = window.urlPath;
+            // 未做图片上传及动态获取图片数据，如需添加图片，请按以下添加图片图片及图片链接
+           var json= {
+                list:[
+                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/1.jpg"},
+                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/2.jpg"},
+                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/3.jpg"},
+                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/4.jpg"},
+                {url:urlPath+"/common/ueditor/js/ueditor/upload/image/5.png"},
+            ],
+            start:0,
+            total:5
+        }
+            this.pushData(json.list);    
+            this.listIndex = parseInt(json.start) + parseInt(json.list.length);
+// console.log(json)
 
-            if(!_this.listEnd && !this.isLoadingData) {
-                this.isLoadingData = true;
-                var url = editor.getOpt('serverUrl') + '?action=' + editor.getOpt('imageManagerActionName'),
-                    isJsonp = utils.isCrossDomainUrl(url);
-                ajax.request(url, {
-                    'timeout': 100000,
-                    'dataType': isJsonp ? 'jsonp':'',
-                    'data': utils.extend({
-                            start: this.listIndex,
-                            size: this.listSize
-                        }, editor.queryCommandValue('serverparam')),
-                    'method': 'get',
-                    'onsuccess': function (r) {
-                        try {
-                            var json = isJsonp ? r:eval('(' + r.responseText + ')');
-                            if (json.state == 'SUCCESS') {
-                                _this.pushData(json.list);
-                                _this.listIndex = parseInt(json.start) + parseInt(json.list.length);
-                                if(_this.listIndex >= json.total) {
-                                    _this.listEnd = true;
-                                }
-                                _this.isLoadingData = false;
-                            }
-                        } catch (e) {
-                            if(r.responseText.indexOf('ue_separate_ue') != -1) {
-                                var list = r.responseText.split(r.responseText);
-                                _this.pushData(list);
-                                _this.listIndex = parseInt(list.length);
-                                _this.listEnd = true;
-                                _this.isLoadingData = false;
-                            }
-                        }
-                    },
-                    'onerror': function () {
-                        _this.isLoadingData = false;
-                    }
-                });
-            }
+            // var _this = this;
+            // if(!_this.listEnd && !this.isLoadingData) {
+            //     this.isLoadingData = true;
+                  
+            //        // 数据请求地址
+            //     var url = editor.getActionUrl(editor.getOpt('imageManagerActionName')),
+             
+            //         isJsonp = utils.isCrossDomainUrl(url);
+            //     // 没有做异步服务器请求，如果要添加图片，请手动加到upload并更改json数据
+            //     ajax.request(url, {
+            //         'timeout': 100000,
+            //         'dataType': isJsonp ? 'jsonp':'',
+            //         'data': utils.extend({
+            //                 start: this.listIndex,
+            //                 size: this.listSize
+            //             }, editor.queryCommandValue('serverparam')),
+            //         'method': 'get',
+            //         'onsuccess': function (r) {
+            //             try {
+            //                 var json = isJsonp ? r:eval('(' + r.responseText + ')');
+            //             //后台数据格式要求
+            //                   var  json = JSON.parse('{"state":"SUCCESS","list":[{"url":"../../upload\/image\/2.jpg","mtime":1517839433},{"url":"../../upload\/image\/3.jpg","mtime":1517839433},{"url":"../../upload\/image\/4.jpg","mtime":1517839433},{"url":"../../upload\/image\/5.png","mtime":1517839433}],"start":"0","total":4}')
+            //                   console.log(json);
+                           
+            //                   if (json.state == 'SUCCESS') {
+                              
+            //                     _this.pushData(json.list);
+                                
+
+            //                     _this.listIndex = parseInt(json.start) + parseInt(json.list.length);
+            //                     if(_this.listIndex >= json.total) {
+            //                         _this.listEnd = true;
+            //                     }
+            //                     _this.isLoadingData = false;
+            //                 }
+            //             } catch (e) {
+            //                 if(r.responseText.indexOf('ue_separate_ue') != -1) {
+            //                     var list = r.responseText.split(r.responseText);
+            //                     _this.pushData(list);
+            //                     _this.listIndex = parseInt(list.length);
+            //                     _this.listEnd = true;
+            //                     _this.isLoadingData = false;
+            //                 }
+            //             }
+            //         },
+            //         'onerror': function () {
+            //             _this.isLoadingData = false;
+            //         }
+            //     });
+            // }
         },
         /* 添加图片到列表界面上 */
         pushData: function (list) {
             var i, item, img, icon, _this = this,
-                urlPrefix = editor.getOpt('imageManagerUrlPrefix');
+                urlPrefix = editor.getOpt('imageManagerUrlPrefix');   
             for (i = 0; i < list.length; i++) {
                 if(list[i] && list[i].url) {
                     item = document.createElement('li');

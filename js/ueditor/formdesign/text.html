@@ -94,6 +94,7 @@ dialog.onok = function (){
         try {
             oNode = createElement('input');
             oNode.setAttribute('type','text');
+             oNode.setAttribute('disabled','disabled');
             oNode.setAttribute('value',gValue);
             oNode.setAttribute('class','question');
             oNode.setAttribute('leipiPlugins',thePlugins);
@@ -130,6 +131,7 @@ dialog.onok = function (){
         }
     } else {
         oNode.setAttribute('value', $G('orgvalue').value);
+        oNode.setAttribute('disabled','disabled');
         if( gFontSize != '' ) {
             oNode.style.fontSize = gFontSize+ 'px';
             oNode.setAttribute('orgfontsize',gFontSize );

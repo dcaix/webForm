@@ -124,7 +124,7 @@ function fnParseOptions(gChecked)
         if(inputs.length>0)
         {
             if(!inputs[0].value) continue;
-          html += '<input value="'+i+'" type="radio" dataValue="'+ inputs[0].value +'"/>'+inputs[0].value+'&nbsp;';
+          html += '&nbsp; &nbsp; &nbsp; &nbsp;<input disabled="disabled" value="'+i+'" type="radio" dataValue="'+ inputs[0].value +'"/>'+inputs[0].value+'&nbsp;';
             if(gChecked=='orgchecked1')//竖排
                 html+='<br/>';
         }
@@ -205,9 +205,9 @@ dialog.onok = function (){
                 alert('请添加选项');
                 return false;
             }
-            //{|- 使用边界，防止用户删除了span标签
+        
             var html = '<label leipiplugins="radios" orgchecked="'+ gChecked +'">';
-                html +=options;
+                html += options;
                 html +='</label>';
             editor.execCommand('insertHtml',html);
             return true ;

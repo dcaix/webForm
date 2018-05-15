@@ -44,7 +44,7 @@ var oNode = null,thePlugins = 'checkbox';
 window.onload = function() {
     if( UE.plugins[thePlugins].editdom ){
         oNode = UE.plugins[thePlugins].editdom;
-        console.log(oNode)
+        // console.log(oNode)
         var gValue=oNode.getAttribute('dataValue');
         $G('orgvalue').value = gValue;
     }
@@ -65,7 +65,7 @@ dialog.onok = function (){
             oNode = createElement('input');
             oNode.setAttribute('class','complexCheckbox' );
             oNode.setAttribute('type','checkbox');
-            var html = ' <label leipiplugins="checkbox" datavalue="'+gValue+'"><input class="complexCheckbox" type="checkbox"/>'+gValue+'</label>'
+            var html = ' <label leipiplugins="checkbox" datavalue="'+gValue+'">&nbsp; &nbsp; &nbsp; &nbsp;<input disabled="disabled" class="complexCheckbox" type="checkbox"/>'+gValue+'</label>'
             editor.execCommand('insertHtml',html);
             return true ;
         } catch ( e ) {
@@ -78,7 +78,7 @@ dialog.onok = function (){
         }
     } else {
         oNode.setAttribute('dataValue',gValue);
-        oNode.innerHTML = '<input class="complexCheckbox" type="checkbox"/>'+gValue
+        oNode.innerHTML = '&nbsp; &nbsp; &nbsp; &nbsp;<input disabled="disabled" class="complexCheckbox" type="checkbox"/>'+gValue
         delete UE.plugins[thePlugins].editdom; 
         return true;
     }

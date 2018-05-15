@@ -125,7 +125,7 @@ function fnParseOptions(gChecked)
         if(inputs.length>0)
         {
             if(!inputs[0].value) continue;
-            html += '<input value="'+i+'" type="checkbox" dataValue="'+ inputs[0].value +'"/>'+inputs[0].value+'&nbsp;';
+            html += '&nbsp; &nbsp; &nbsp; &nbsp;<input disabled="disabled" value="'+i+'" type="checkbox" dataValue="'+ inputs[0].value +'"/>'+inputs[0].value+'&nbsp;';
             if(gChecked=='orgchecked1')//竖排
                 html+='<br/>';
         }
